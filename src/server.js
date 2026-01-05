@@ -1,10 +1,18 @@
-const express=require('express')
+import express from "express";
+import {config} from dotenv
+import{connectDB,disconnectDB} from "./config/db.js"
+//import routes
+import movieRoutes from "./routes/movieRoutes.js"
 
+console.log("✅ RUNNING src/server.js");
+
+config()
+connectDB()
 const app=express()
 
-app.get("/hello", (req,res)=> {
-    res.json({message: "Hello world"})
-})
+app.use("/movies",movieRoutes)
+ 
+
 
 //req and res
 //req is request
@@ -25,3 +33,49 @@ app.listen(PORT,()=> {
 //GET
 //USERS
 //WATCHLIST
+
+
+// ===============================
+// Handle unhandled promise rejections
+// ===============================
+process.on("unhandledRejection", (err) => {
+  console.error("Unhandled Rejection:", err);
+
+  server.close(async () => {
+    try {
+      await disconnectDB();
+    } finally {
+      process.exit(1);
+    }
+  });
+});
+
+
+// ===============================
+// Handle uncaught exceptions
+// ===============================
+process.on("uncaughtException", async (err) => {
+  console.error("Uncaught Exception:", err);
+
+  try {
+    await disconnectDB();
+  } finally {
+    process.exit(1);
+  }
+});
+
+
+// ===============================
+// Graceful shutdown (SIGTERM)
+// ===============================
+process.on("SIGTERM", async () => {
+  console.log("SIGTERM received, shutting down gracefully");
+
+  server.close(async () => {
+    try {
+      await disconnectDB();
+    } finally {
+      process.exit(0);
+    }
+  });
+});

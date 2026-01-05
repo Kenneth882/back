@@ -2,7 +2,7 @@
   "name": "Test Request",
   "request": {
     "type": "http",
-    "url": "{{BaseURL}}/hello",
+    "url": "{{BaseURL}}/movies/hello",
     "scripts": {
       "preRequest": "",
       "postResponse": ""
