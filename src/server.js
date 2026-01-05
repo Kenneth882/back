@@ -1,5 +1,6 @@
 import express from "express";
-import {config} from dotenv
+import { config } from "dotenv";
+
 import{connectDB,disconnectDB} from "./config/db.js"
 //import routes
 import movieRoutes from "./routes/movieRoutes.js"
@@ -21,9 +22,10 @@ app.use("/movies",movieRoutes)
 const PORT = 5001;
 //8080 use a free port
 
-app.listen(PORT,()=> {
- console.log(`server running on PORT ${PORT}`)
-})
+const server = app.listen(PORT, () => {
+  console.log(`server running on PORT ${PORT}`);
+});
+
 
 //HTTP, Get,post,put,delete
 // to reach server run localhost:5001
