@@ -28,7 +28,7 @@ const register = async (req, res) => {
   });
   
   
-  const token=generateToken(user.id,res)
+  const token = generateToken(res, user.id);
 
 
   res.status(201).json({
@@ -62,7 +62,7 @@ const login = async (req, res) => {
     return res.status(401).json({ error: "Invalid email or password" });
   }
 
-  const token = generateToken(user.id,res);
+  const token = generateToken(res, user.id);
 
   return res.status(200).json({
     status: "success",

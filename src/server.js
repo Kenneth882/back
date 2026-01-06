@@ -23,7 +23,7 @@ app.use(express.urlencoded({extend:true}))
 
 app.use("/movies",movieRoutes)
 app.use("/auth",authRoutes)
- 
+
 
 
 //req and res
